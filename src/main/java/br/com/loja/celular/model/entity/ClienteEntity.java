@@ -15,7 +15,7 @@ public class ClienteEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_CLEINTE")
+	@Column(name = "ID_CLIENTE")
 	private Long idCliente;
 	
 	@Column(name = "NM_CLIENTE")
