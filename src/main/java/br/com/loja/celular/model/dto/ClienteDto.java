@@ -12,8 +12,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class ClienteDto implements Serializable{
 
 	private static final long serialVersionUID = 2400383012853997095L;
@@ -24,16 +24,26 @@ public class ClienteDto implements Serializable{
 	private String telefone;
 	private String email;
 	
-	public ClienteDto (ClienteEntity entity) {
+//	public ClienteDto(ClienteEntity entity) {
+//		this.idCliente = entity.getIdCliente();
+//		this.nmCliente = entity.getNmCliente();
+//		this.email = entity.getEmail();
+//		this.nrCpf = entity.getNrCpf();
+//		this.telefone = entity.getTelefone();
+//	}
+	
+	public static ClienteDto convertToDto(ClienteEntity entity) {
 		ModelMapper modelMapper = new ModelMapper();
 		//ClienteDto clienteDto = modelMapper.map(order, OrderDTO.class);
 		ClienteDto clienteDto = modelMapper.map(entity, ClienteDto.class);
+		return clienteDto;
 	}
-	
-	public static List<ClienteDto> convertToDto(List<ClienteEntity> entityList) {
+
+	public static List<ClienteDto> convertListToDto(List<ClienteEntity> entityList) {
 		List<ClienteDto> dtoList = new ArrayList<ClienteDto>();
 		entityList.forEach(entity ->{
-			ClienteDto clienteDto = new ClienteDto(entity);
+			ClienteDto clienteDto = convertToDto(entity);
+			dtoList.add(clienteDto);
 		});
 		
 		return dtoList;

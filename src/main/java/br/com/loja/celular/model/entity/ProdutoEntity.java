@@ -1,6 +1,14 @@
 package br.com.loja.celular.model.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.modelmapper.ModelMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,4 +33,10 @@ public class ProdutoEntity {
 	
 	@Column(name = "QTD_PRODUTO")
 	private Integer qtdProduto;
+	
+	public static ProdutoEntity convertToEntity(Object form) {
+		ModelMapper modelMapper = new ModelMapper();
+		ProdutoEntity produtoEntity = modelMapper.map(form, ProdutoEntity.class);
+		return produtoEntity;
+	}
 }
