@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 
-import br.com.loja.celular.model.entity.ClienteEntity;
 import br.com.loja.celular.model.entity.ProdutoEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +21,8 @@ public class ProdutoDto implements Serializable{
 	private Long idProduto;
 	private String nmProduto;
 	private String dsProduto;
-	private Integer qtdProduto;
+	private Double vlProduto;
+	private Integer qtdProdutoEstoque;
 	
 	
 	public static ProdutoDto convertToDto(ProdutoEntity entity) {

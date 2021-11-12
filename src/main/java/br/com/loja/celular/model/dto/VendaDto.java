@@ -13,8 +13,9 @@ import lombok.NoArgsConstructor;
 public class VendaDto implements Serializable{
 	
 	private static final long serialVersionUID = -7206994494867353950L;
+	
 	private Long idVenda;
 	private Double vlVenda;
-	private List<ProdutoDto> itens;
+	private List<VendaItemDto> itens;
 	private ClienteDto cliente;
 }

@@ -31,8 +31,11 @@ public class ProdutoEntity {
 	@Column(name = "DS_PRODUTO")
 	private String dsProduto;
 	
-	@Column(name = "QTD_PRODUTO")
-	private Integer qtdProduto;
+	@Column(name = "VL_PRODUTO")
+	private Double vlProduto;
+	
+	@Column(name = "QTD_PRODUTO_ESTOQUE")
+	private Integer qtdProdutoEstoque;
 	
 	public static ProdutoEntity convertToEntity(Object form) {
 		ModelMapper modelMapper = new ModelMapper();

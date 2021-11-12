@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.modelmapper.ModelMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,9 +35,15 @@ public class VendaEntity {
 	
 	@OneToMany
 	@JoinColumn(name = "ITENS")
-	private List<ProdutoEntity> itens;
+	private List<VendaItemEntity> itens;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE")
 	private ClienteEntity cliente;
+	
+	public static VendaEntity convertToEntity(Object form) {
+		ModelMapper modelMapper = new ModelMapper();
+		VendaEntity vendaEntity = modelMapper.map(form, VendaEntity.class);
+		return vendaEntity;
+	}
 }
