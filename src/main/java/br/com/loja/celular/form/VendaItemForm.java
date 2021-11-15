@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class VendaItemForm {
 
 	private Long nrItemVenda;
-	private Long idProduto;
+	private Long produto;
 	private Long qtdItem;
 	private Double vlItem;
 	

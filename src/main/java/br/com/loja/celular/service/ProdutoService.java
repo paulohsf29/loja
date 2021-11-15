@@ -63,4 +63,17 @@ public class ProdutoService {
 		return true;
 	}
 
+	public Boolean deletarProduto(Long idProduto) {
+		ProdutoEntity produtoEntity = repository.getById(idProduto);
+		
+		if (produtoEntity == null) {
+			// TODO Implementar exceptions
+			return false;
+		}
+		
+		repository.delete(produtoEntity);
+		
+		return true;
+	}
+
 }

@@ -2,6 +2,7 @@ package br.com.loja.celular.model.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 
 import org.modelmapper.ModelMapper;
 
+import br.com.loja.celular.form.VendaForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,8 +35,8 @@ public class VendaEntity {
 	@Column(name = "VL_VENDA")
 	private Double vlVenda;
 	
-	@OneToMany
-	@JoinColumn(name = "ITENS")
+	@OneToMany(mappedBy = "idVenda",cascade = CascadeType.ALL)
+	//@JoinColumn(name = "ITENS")
 	private List<VendaItemEntity> itens;
 	
 	@ManyToOne
@@ -46,4 +48,16 @@ public class VendaEntity {
 		VendaEntity vendaEntity = modelMapper.map(form, VendaEntity.class);
 		return vendaEntity;
 	}
+	
+//	public static VendaEntity convertToEntity(VendaForm form) {
+//		VendaEntity entity = new VendaEntity();
+//		
+//		entity.setCliente(ClienteEntity.convertToEntity(form.getIdCliente()));
+//		entity.setIdVenda(null);
+//		entity.setItens(VendaItemEntity.convertToEntity(form.getItens()));
+//		entity.setVlVenda(form.getVlVenda());
+//		
+//		return entity;
+//	}
+	
 }

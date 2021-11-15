@@ -34,38 +34,51 @@ public class ClienteService {
 		ClienteEntity clienteEntity = repository.findByNrCpf(clienteForm.getNrCpf());
 
 		if (clienteEntity != null) {
-			//TODO Implementar exceção para cliente já existe
+			// TODO Implementar exceção para cliente já existe
 			return false;
 		}
-		
+
 		repository.saveAndFlush(ClienteEntity.convertToEntity(clienteForm));
-		
+
 		return true;
 	}
 
 	public ClienteDto buscarClientePorId(Long idCliente) {
 		ClienteEntity clienteEntity;
-		
+
 		clienteEntity = repository.getById(idCliente);
-		
-		if(clienteEntity == null) {
+
+		if (clienteEntity == null) {
 			return null;
 		}
-		
+
 		return ClienteDto.convertToDto(clienteEntity);
 	}
 
 	public Boolean atualizarCadastroCliente(ClienteAlterarForm clienteForm) {
-		
+
 		ClienteEntity clienteEntity = repository.findByIdCliente(clienteForm.getIdCliente());
-		
-		if(clienteEntity == null) {
-			//TODO Implementar exceptions
+
+		if (clienteEntity == null) {
+			// TODO Implementar exceptions
 			return false;
-		}	
-		
+		}
+
 		repository.saveAndFlush(ClienteEntity.convertToEntity(clienteForm));
-		
+
+		return true;
+	}
+
+	public Boolean deletarCliente(Long idCliente) {
+		ClienteEntity clienteEntity = repository.getById(idCliente);
+
+		if (clienteEntity == null) {
+			// TODO Implementar exceptions
+			return false;
+		}
+
+		repository.delete(clienteEntity);
+
 		return true;
 	}
 

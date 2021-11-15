@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -58,6 +59,15 @@ public class ProdutoController {
 	public ResponseEntity<Boolean> atualizarCadastroProduto(@Valid @RequestBody ProdutoAlterarForm produtoForm){
 		
 		Boolean cadastroProduto = service.atualizarCadastroProduto(produtoForm);
+		
+		return ResponseEntity.ok(cadastroProduto);
+	}
+	
+	@DeleteMapping("/deletar/{idProduto}")
+	@ApiOperation(value = "Deletar Produto")
+	public ResponseEntity<Boolean> deletarProduto(@RequestParam final Long idProduto){
+		
+		Boolean cadastroProduto = service.deletarProduto(idProduto);
 		
 		return ResponseEntity.ok(cadastroProduto);
 	}

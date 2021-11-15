@@ -2,8 +2,11 @@ package br.com.loja.celular.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.loja.celular.form.VendaForm;
 import br.com.loja.celular.model.entity.VendaEntity;
@@ -25,24 +28,30 @@ public class VendaService {
 	VendaRepository vendaRepository;
 
 	public Boolean efetuarVenda(VendaForm vendaForm) {
-		VendaEntity vendaEntity;
-		if(vendaForm.getIdCliente() != null) {
-			
-			if(clienteRepository.getById(vendaForm.getIdCliente()) == null) {
-				//TODO Implementar Exceptions
-				return false;
-			}
-		}
-		List<VendaItemEntity> vendaItemEntity= VendaItemEntity.convertToEntity(vendaForm.getItens());
-		
-		vendaEntity = VendaEntity.convertToEntity(vendaForm);
-		
-		vendaEntity.setItens(vendaItemEntity);
-		
-		vendaRepository.saveAndFlush(vendaEntity);
-		
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
+
+//	@Transactional
+//	public Boolean efetuarVenda(VendaForm vendaForm) {
+//		VendaEntity vendaEntity;
+//		if(vendaForm.getIdCliente() != null) {
+//			
+//			if(clienteRepository.getById(vendaForm.getIdCliente()) == null) {
+//				//TODO Implementar Exceptions
+//				return false;
+//			}
+//		}
+//		List<VendaItemEntity> vendaItemEntity= VendaItemEntity.convertToEntity(vendaForm.getItens());
+//		
+//		vendaEntity = VendaEntity.convertToEntity(vendaForm);
+//		
+//		//vendaEntity.setItens(vendaItemEntity);
+//		
+//		vendaRepository.save(vendaEntity);
+//		
+//		
+//		return null;
+//	}
 
 }
