@@ -27,31 +27,31 @@ public class VendaService {
 	@Autowired
 	VendaRepository vendaRepository;
 
-	public Boolean efetuarVenda(VendaForm vendaForm) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-//	@Transactional
 //	public Boolean efetuarVenda(VendaForm vendaForm) {
-//		VendaEntity vendaEntity;
-//		if(vendaForm.getIdCliente() != null) {
-//			
-//			if(clienteRepository.getById(vendaForm.getIdCliente()) == null) {
-//				//TODO Implementar Exceptions
-//				return false;
-//			}
-//		}
-//		List<VendaItemEntity> vendaItemEntity= VendaItemEntity.convertToEntity(vendaForm.getItens());
-//		
-//		vendaEntity = VendaEntity.convertToEntity(vendaForm);
-//		
-//		//vendaEntity.setItens(vendaItemEntity);
-//		
-//		vendaRepository.save(vendaEntity);
-//		
-//		
+//		// TODO Auto-generated method stub
 //		return null;
 //	}
+
+	@Transactional
+	public Boolean efetuarVenda(VendaForm vendaForm) {
+		VendaEntity vendaEntity;
+		if(vendaForm.getIdCliente() != null) {
+			
+			if(clienteRepository.getById(vendaForm.getIdCliente()) == null) {
+				//TODO Implementar Exceptions
+				return false;
+			}
+		}
+		List<VendaItemEntity> vendaItemEntity= VendaItemEntity.convertToEntity(vendaForm.getItens());
+		
+		vendaEntity = VendaEntity.convertToEntity(vendaForm);
+		
+		//vendaEntity.setItens(vendaItemEntity);
+		
+		vendaRepository.save(vendaEntity);
+		
+		
+		return null;
+	}
 
 }

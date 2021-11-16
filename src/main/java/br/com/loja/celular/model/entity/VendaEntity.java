@@ -15,7 +15,6 @@ import javax.persistence.Table;
 
 import org.modelmapper.ModelMapper;
 
-import br.com.loja.celular.form.VendaForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,7 +34,7 @@ public class VendaEntity {
 	@Column(name = "VL_VENDA")
 	private Double vlVenda;
 	
-	@OneToMany(mappedBy = "idVenda",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "venda",cascade = CascadeType.ALL)
 	//@JoinColumn(name = "ITENS")
 	private List<VendaItemEntity> itens;
 	

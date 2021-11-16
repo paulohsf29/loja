@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +18,6 @@ import javax.persistence.Table;
 import org.modelmapper.ModelMapper;
 
 import br.com.loja.celular.form.VendaItemForm;
-import br.com.loja.celular.model.dto.VendaItemDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,8 +35,8 @@ public class VendaItemEntity implements Serializable{
 	
     @Id
     @JoinColumn(name = "ID_VENDA")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private VendaEntity idVenda;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private VendaEntity venda;
 	
 	@Id
 	@Column(name = "NR_ITEM_VENDA")
@@ -70,7 +70,7 @@ public class VendaItemEntity implements Serializable{
 //		formList.forEach(form->{
 //			VendaItemEntity entity = new VendaItemEntity();
 //			
-//			entity.setIdVenda(null);
+//			//entity.setIdVenda(null);
 //			entity.setNrItemVenda(form.getNrItemVenda());
 //			entity.setProduto(ProdutoEntity.convertToEntity(form.getProduto()));
 //			entity.setQtdItem(form.getQtdItem());
