@@ -3,6 +3,7 @@ package br.com.loja.celular.model.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 
@@ -24,17 +25,8 @@ public class ClienteDto implements Serializable{
 	private String telefone;
 	private String email;
 	
-//	public ClienteDto(ClienteEntity entity) {
-//		this.idCliente = entity.getIdCliente();
-//		this.nmCliente = entity.getNmCliente();
-//		this.email = entity.getEmail();
-//		this.nrCpf = entity.getNrCpf();
-//		this.telefone = entity.getTelefone();
-//	}
-	
 	public static ClienteDto convertToDto(ClienteEntity entity) {
 		ModelMapper modelMapper = new ModelMapper();
-		//ClienteDto clienteDto = modelMapper.map(order, OrderDTO.class);
 		ClienteDto clienteDto = modelMapper.map(entity, ClienteDto.class);
 		return clienteDto;
 	}

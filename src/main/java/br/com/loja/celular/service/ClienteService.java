@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.com.loja.celular.form.ClienteAlterarForm;
 import br.com.loja.celular.form.ClienteForm;
 import br.com.loja.celular.model.dto.ClienteDto;
 import br.com.loja.celular.model.entity.ClienteEntity;
 import br.com.loja.celular.repository.ClienteRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class ClienteService {
 
@@ -23,6 +27,11 @@ public class ClienteService {
 		List<ClienteEntity> entityList = new ArrayList<ClienteEntity>();
 
 		entityList = repository.findAll();
+		
+		if(entityList.isEmpty()) {
+			log.error("Nenhum Objeto encontrado, do tipo: " + ClienteEntity.class);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhum Cliente encontrado");
+		}
 
 		dtoList = ClienteDto.convertListToDto(entityList);
 
@@ -34,8 +43,8 @@ public class ClienteService {
 		ClienteEntity clienteEntity = repository.findByNrCpf(clienteForm.getNrCpf());
 
 		if (clienteEntity != null) {
-			// TODO Implementar exceção para cliente já existe
-			return false;
+			log.error("CPF Já cadastrado, do tipo: " + ClienteEntity.class);
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CPF Já cadastrado");
 		}
 
 		repository.saveAndFlush(ClienteEntity.convertToEntity(clienteForm));
@@ -44,15 +53,17 @@ public class ClienteService {
 	}
 
 	public ClienteDto buscarClientePorId(Long idCliente) {
-		ClienteEntity clienteEntity;
+		ClienteEntity clienteEntity = null;
 
-		clienteEntity = repository.getById(idCliente);
+		clienteEntity = repository.findByIdCliente(idCliente);
 
 		if (clienteEntity == null) {
-			return null;
+			log.error("Objeto não encontrado, do tipo: " + ClienteEntity.class);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado");
 		}
-
+		
 		return ClienteDto.convertToDto(clienteEntity);
+		
 	}
 
 	public Boolean atualizarCadastroCliente(ClienteAlterarForm clienteForm) {
@@ -60,8 +71,8 @@ public class ClienteService {
 		ClienteEntity clienteEntity = repository.findByIdCliente(clienteForm.getIdCliente());
 
 		if (clienteEntity == null) {
-			// TODO Implementar exceptions
-			return false;
+			log.error("Objeto não encontrado, do tipo: " + ClienteEntity.class);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado");
 		}
 
 		repository.saveAndFlush(ClienteEntity.convertToEntity(clienteForm));
@@ -73,13 +84,24 @@ public class ClienteService {
 		ClienteEntity clienteEntity = repository.getById(idCliente);
 
 		if (clienteEntity == null) {
-			// TODO Implementar exceptions
-			return false;
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado");
 		}
 
 		repository.delete(clienteEntity);
 
 		return true;
+	}
+
+	public ClienteDto buscaClientePorCpf(String cpfCliente) {
+		ClienteEntity clienteEntity = null;
+
+		clienteEntity = repository.findByNrCpf(cpfCliente);
+
+		if (clienteEntity == null) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado");
+		}
+		
+		return ClienteDto.convertToDto(clienteEntity);
 	}
 
 }

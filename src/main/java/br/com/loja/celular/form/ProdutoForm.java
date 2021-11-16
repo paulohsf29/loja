@@ -17,6 +17,9 @@ public class ProdutoForm {
 	@NotNull(message = "Descricao do produto")
 	private String dsProduto;
 	
+	@NotNull(message = "Valor do produto obrigatóerio")
+	private Double vlProduto;
+	
 	private Integer qtdProdutoEstoque;
 	
 }

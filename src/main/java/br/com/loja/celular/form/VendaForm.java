@@ -14,5 +14,5 @@ public class VendaForm {
 
 	private Double vlVenda;
 	private List<VendaItemForm> itens;
-	private Long idCliente;
+	private ClienteDto cliente;
 }

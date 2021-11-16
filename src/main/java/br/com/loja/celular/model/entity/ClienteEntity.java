@@ -1,5 +1,7 @@
 package br.com.loja.celular.model.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +20,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteEntity {
+public class ClienteEntity implements Serializable{
+
+	private static final long serialVersionUID = -6703278458421290455L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,5 +46,24 @@ public class ClienteEntity {
 		ClienteEntity clienteEntity = modelMapper.map(form, ClienteEntity.class);
 		return clienteEntity;
 	}
+
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		ClienteEntity other = (ClienteEntity) obj;
+//		return Objects.equals(email, other.email) && Objects.equals(idCliente, other.idCliente)
+//				&& Objects.equals(nmCliente, other.nmCliente) && Objects.equals(nrCpf, other.nrCpf)
+//				&& Objects.equals(telefone, other.telefone);
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(email, idCliente, nmCliente, nrCpf, telefone);
+//	}
 
 }

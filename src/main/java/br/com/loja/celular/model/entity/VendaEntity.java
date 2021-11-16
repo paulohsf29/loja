@@ -1,6 +1,8 @@
 package br.com.loja.celular.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,13 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.modelmapper.ModelMapper;
 
-import br.com.loja.celular.form.VendaForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VendaEntity {
+public class VendaEntity implements Serializable{
+
+	private static final long serialVersionUID = 4292790744267054174L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +38,7 @@ public class VendaEntity {
 	@Column(name = "VL_VENDA")
 	private Double vlVenda;
 	
-	@OneToMany(mappedBy = "idVenda",cascade = CascadeType.ALL)
-	//@JoinColumn(name = "ITENS")
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<VendaItemEntity> itens;
 	
 	@ManyToOne
@@ -48,16 +50,23 @@ public class VendaEntity {
 		VendaEntity vendaEntity = modelMapper.map(form, VendaEntity.class);
 		return vendaEntity;
 	}
-	
-//	public static VendaEntity convertToEntity(VendaForm form) {
-//		VendaEntity entity = new VendaEntity();
-//		
-//		entity.setCliente(ClienteEntity.convertToEntity(form.getIdCliente()));
-//		entity.setIdVenda(null);
-//		entity.setItens(VendaItemEntity.convertToEntity(form.getItens()));
-//		entity.setVlVenda(form.getVlVenda());
-//		
-//		return entity;
-//	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		VendaEntity other = (VendaEntity) obj;
+		return Objects.equals(cliente, other.cliente) && Objects.equals(idVenda, other.idVenda)
+				&& Objects.equals(itens, other.itens) && Objects.equals(vlVenda, other.vlVenda);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cliente, idVenda, itens, vlVenda);
+	}
+
 }

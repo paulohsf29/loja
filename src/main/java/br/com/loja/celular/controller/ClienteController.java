@@ -41,8 +41,16 @@ public class ClienteController {
 	@GetMapping("/buscarCliente/{idCliente}")
 	@ApiOperation(value = "Busca cliente por id")
 	public ResponseEntity<ClienteDto> buscaClientePorId(@RequestParam final Long idCliente){
-		ClienteDto clienteList = service.buscarClientePorId(idCliente);
-		return ResponseEntity.ok(clienteList);
+		ClienteDto cliente = service.buscarClientePorId(idCliente);
+		return ResponseEntity.ok(cliente);
+	}
+	
+	@GetMapping("/buscarCliente/{cpfCliente}")
+	@ApiOperation(value = "Busca cliente por CPF")
+	public ResponseEntity<ClienteDto> buscaClientePorCpf(@RequestParam final String cpfCliente){
+		ClienteDto cliente = service.buscaClientePorCpf(cpfCliente);
+		
+		return ResponseEntity.ok(cliente);
 	}
 	
 	@PostMapping("/cadastrar")

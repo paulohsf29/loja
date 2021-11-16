@@ -8,4 +8,6 @@ import br.com.loja.celular.model.entity.ProdutoEntity;
 @Repository
 public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Long>{
 
+	ProdutoEntity findByIdProduto(Long idProduto);
+
 }
